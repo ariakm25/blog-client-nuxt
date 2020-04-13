@@ -1,0 +1,234 @@
+
+.nuxt-progress {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 2px;
+  width: 0%;
+  opacity: 1;
+  transition: width 0.1s, opacity 0.4s;
+  background-color: rgb(10,166,121);
+  z-index: 999999;
+}
+.nuxt-progress.nuxt-progress-notransition {
+  transition: none;
+}
+.nuxt-progress-failed {
+  background-color: red;
+}
+
+
+.nuxt__build_indicator[data-v-71e9e103] {
+  box-sizing: border-box;
+  position: fixed;
+  font-family: monospace;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.2);
+  width: 88px;
+  z-index: 2147483647;
+  font-size: 16px;
+  line-height: 1.2rem;
+}
+.v-enter-active[data-v-71e9e103], .v-leave-active[data-v-71e9e103] {
+  transition-delay: 0.2s;
+  transition-property: all;
+  transition-duration: 0.3s;
+}
+.v-leave-to[data-v-71e9e103] {
+  opacity: 0;
+  transform: translateY(20px);
+}
+svg[data-v-71e9e103] {
+  display: inline-block;
+  vertical-align: baseline;
+  width: 1.1em;
+  position: relative;
+  top: 1px;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: 0.3s;
+}
+.page-enter {
+  transform: translate(-100px, 0);
+  opacity: 0;
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translate(-100px, 0);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+#header {
+  background: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
+  position: relative;
+  z-index: 10;
+  max-width: 100%;
+}
+.ant-layout-content {
+  background-color: #fff;
+  padding: 2rem 0;
+  min-height: 80vh;
+}
+.ant-layout-footer {
+  background-color: #000;
+  padding: 1rem 0;
+  padding-top: 2rem;
+  color: #fff;
+}
+.ant-layout-footer h3 {
+  color: #fff;
+}
+.container {
+  width: 80%;
+  margin: auto;
+}
+#logo {
+  overflow: hidden;
+  float: left;
+  height: 64px;
+  line-height: 64px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+#search-box {
+  border-left: 1px solid #ebedf0;
+  float: left;
+  height: 22px;
+  line-height: 22px;
+  padding-left: 16px;
+  margin: 22px auto 0;
+}
+#search-box .anticon {
+  color: #ced4d9;
+  position: relative;
+  top: 0.5px;
+}
+#nav {
+  border: 0;
+  float: right;
+  font-size: 14px;
+}
+#nav .ant-menu-item {
+  border: 0;
+  float: right;
+  font-size: 14px;
+  height: 64px;
+  line-height: 50px;
+  min-width: 72px;
+}
+#nav .ant-menu-item,
+.ant-menu-submenu-title {
+  padding: 8px 20px;
+}
+#menu-button {
+  display: none;
+  float: right;
+}
+.mw25 {
+  max-width: 25%;
+}
+.text-center {
+  text-align: center;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.auth {
+  max-width: 400px;
+  margin: auto;
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+.mt-4 {
+  margin-top: 4rem;
+}
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0 10px;
+    margin: auto;
+  }
+
+  #menu-button {
+    display: block;
+  }
+}
+
+
+#components-layout-demo-side .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.admin-content-container {
+  padding: 20px;
+}
+
+.admin-content {
+  padding: 20px;
+  background-color: #fff;
+}
+
+pre:before {
+  content: attr(data-language);
+  text-transform: uppercase;
+  display: block;
+  text-align: right;
+  font-weight: 700;
+  font-size: .6rem
+}
+
+pre code .hljs-comment,pre code .hljs-quote {
+  color: #999
+}
+
+pre code .hljs-attribute,pre code .hljs-link,pre code .hljs-name,pre code .hljs-regexp,pre code .hljs-selector-class,pre code .hljs-selector-id,pre code .hljs-tag,pre code .hljs-template-variable,pre code .hljs-variable {
+  color: #f2777a
+}
+
+pre code .hljs-built_in,pre code .hljs-builtin-name,pre code .hljs-literal,pre code .hljs-meta,pre code .hljs-number,pre code .hljs-params,pre code .hljs-type {
+  color: #f99157
+}
+
+pre code .hljs-bullet,pre code .hljs-string,pre code .hljs-symbol {
+  color: #9c9
+}
+
+pre code .hljs-section,pre code .hljs-title {
+  color: #fc6
+}
+
+pre code .hljs-keyword,pre code .hljs-selector-tag {
+  color: #69c
+}
+
+pre code .hljs-emphasis {
+  font-style: italic
+}
+
+pre code .hljs-strong {
+  font-weight: 700
+}
+
+
