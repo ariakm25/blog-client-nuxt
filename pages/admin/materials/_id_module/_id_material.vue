@@ -2,7 +2,8 @@
   <div>
     <a-row style="margin-bottom: 2rem">
       <a-col :span="12">
-        <h1>Update Article</h1>
+        <h1>Update Material</h1>
+        <h3>{{ module.series.title }} / {{ module.title }}</h3>
       </a-col>
       <a-col :span="12">
         <a-button type="primary" style="float: right" icon="left" @click="back"
@@ -69,26 +70,6 @@
                 }
               ]"
             />
-          </a-form-item>
-          <a-form-item label="Tags">
-            <a-select
-              v-decorator="[
-                'tags',
-                {
-                  initialValue: currentTags
-                }
-              ]"
-              mode="tags"
-              style="width: 100%"
-              placeholder="Tags"
-            >
-              <a-select-option
-                v-for="tag in tags"
-                :key="tag.id"
-                :value="tag.id.toString()"
-                >{{ tag.name }}</a-select-option
-              >
-            </a-select>
           </a-form-item>
           <a-form-item label="Content">
             <no-ssr>
@@ -337,29 +318,25 @@ export default {
     EditorMenuBar
   },
   async asyncData({ $axios, params }) {
-    const tags = await $axios.get('/tags?all=true')
-    const getArticle = await $axios.get('/articles/id/' + params.id)
-    const article = getArticle.data.data
+    const getMaterial = await $axios.get('/materials/id/' + params.id_material)
+    const material = getMaterial.data.data
 
     return {
-      tags: tags.data.data,
-      title: article.title,
-      image: article.image,
-      status: article.status.toString(),
-      content: article.content,
-      currentTags: article.tags.map((i) => i.id.toString())
+      title: material.title,
+      image: material.image,
+      status: material.status.toString(),
+      content: material.content,
+      module: material.module
     }
   },
   data() {
     return {
       loading: false,
       imageApi: null,
-      tags: null,
       editor: null,
       content: null,
       title: null,
       image: null,
-      currentTags: null,
       status: null
     }
   },
@@ -423,13 +400,14 @@ export default {
         if (!err) {
           this.loading = true
           this.$axios
-            .put('/articles/update/' + this.$route.params.id, values)
+            .put('/materials/update/' + this.$route.params.id_material, values)
             .then((data) => {
               this.loading = false
               this.$message.config({
                 top: '70px'
               })
-              this.$message.success('Article updated successfully!')
+              this.$message.success('Materials updated successfully!')
+              this.$router.push('/admin/series/' + this.module.series.id)
             })
             .catch((err) => {
               err.response.data.data.forEach((item) => {

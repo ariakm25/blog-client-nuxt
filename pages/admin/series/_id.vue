@@ -2,7 +2,7 @@
   <div>
     <a-row style="margin-bottom: 2rem">
       <a-col :span="12">
-        <h1>Update Series</h1>
+        <h1>Update Series {{ title }}</h1>
       </a-col>
       <a-col :span="12">
         <a-button type="primary" style="float: right" icon="left" @click="back"
@@ -329,9 +329,12 @@
             />
           </a-col>
         </a-row>
+        <a-divider style="margin-top: 10px" />
         <a-row v-for="module in modules" :key="module.id">
           <a-col :span="16">
-            <a-list>{{ module.title }}</a-list>
+            <a-list
+              ><h3>{{ module.title }}</h3></a-list
+            >
           </a-col>
           <a-col :span="8">
             <a-popconfirm
@@ -353,13 +356,47 @@
               icon="edit"
               @click="showModalEditModule(module)"
             ></a-button>
-            <nuxt-link :to="'/admin/materials/' + $route.params.id + '/create'">
+            <nuxt-link :to="`/admin/materials/${module.id}/create`">
               <a-button
                 style="float: right"
                 type="primary"
                 icon="plus"
               ></a-button>
             </nuxt-link>
+          </a-col>
+          <a-col :span="24" style="margin-top: 10px">
+            <a-row v-for="material in module.materials" :key="material.id">
+              <a-col :span="16">
+                <ul style="list-style: disc; list-style-type: circle;">
+                  <li>
+                    <h3>{{ material.title }}</h3>
+                  </li>
+                </ul>
+              </a-col>
+              <a-col :span="8">
+                <a-popconfirm
+                  style="float: right; margin-left  : 10px"
+                  title="Are you sure？"
+                  ok-text="Delete"
+                  cancel-text="Cancel"
+                  ok-type="danger"
+                  @confirm="destroyMaterial(material)"
+                  ><a-icon
+                    slot="icon"
+                    type="question-circle-o"
+                    style="color: red"
+                  />
+                  <a-button type="danger" icon="delete"></a-button>
+                </a-popconfirm>
+                <nuxt-link :to="`/admin/materials/${module.id}/${material.id}`">
+                  <a-button
+                    style="float: right"
+                    type="primary"
+                    icon="edit"
+                  ></a-button>
+                </nuxt-link>
+              </a-col>
+            </a-row>
           </a-col>
         </a-row>
       </a-col>
@@ -633,11 +670,27 @@ export default {
       )
       const series = getSeries.data.data
       this.modules = series.modules
+    },
+    destroyMaterial(val) {
+      const key = 'delete'
+      this.$message.loading({ content: 'Deleting...', key })
+      this.$axios
+        .delete(`/materials/delete/${val.id}`)
+        .then((data) => {
+          this.$message.success({
+            content: `Matrial ${data.data.data.title} deleted succesfully.`,
+            key
+          })
+          this.updateModule()
+        })
+        .catch(() => {
+          this.$message.error({ content: 'Failed to delete material.', key })
+        })
     }
   },
   head() {
     return {
-      title: 'Edit series'
+      title: `Edit Series ${this.title}`
     }
   }
 }

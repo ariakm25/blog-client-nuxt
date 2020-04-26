@@ -3,6 +3,7 @@
     <a-row style="margin-bottom: 2rem">
       <a-col :span="12">
         <h1>Create Material</h1>
+        <h3>{{ module.series.title }} / {{ module.title }}</h3>
       </a-col>
       <a-col :span="12">
         <a-button type="primary" style="float: right" icon="left" @click="back"
@@ -67,21 +68,6 @@
                 }
               ]"
             />
-          </a-form-item>
-          <a-form-item label="Tags">
-            <a-select
-              v-decorator="['tags']"
-              mode="tags"
-              style="width: 100%"
-              placeholder="Tags"
-            >
-              <a-select-option
-                v-for="tag in tags"
-                :key="tag.id"
-                :value="tag.id.toString()"
-                >{{ tag.name }}</a-select-option
-              >
-            </a-select>
           </a-form-item>
           <a-form-item label="Content">
             <no-ssr>
@@ -333,9 +319,14 @@ export default {
     return {
       loading: false,
       imageApi: null,
-      tags: null,
       editor: null,
-      content: null
+      content: null,
+      module: {
+        title: null,
+        series: {
+          title: null
+        }
+      }
     }
   },
   mounted() {
@@ -374,18 +365,18 @@ export default {
       ]
     })
   },
-  beforeCreate() {
-    this.form = this.$form.createForm(this, { name: 'create_article' })
-    this.$axios
-      .get('/tags?all=true')
-      .then((data) => {
-        this.tags = data.data.data
-      })
-      .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.log(err)
-        this.$message.error('Failed fetch tags')
-      })
+  async beforeCreate() {
+    try {
+      this.form = this.$form.createForm(this, { name: 'create_article' })
+      const module = await this.$axios.get(
+        `/modules/${this.$route.params.id_module}`
+      )
+      this.module = module.data.data
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err)
+      this.$message.error('Failed fetch tags')
+    }
   },
   beforeDestroy() {
     this.editor.destroy()
@@ -405,15 +396,17 @@ export default {
     handleSubmit() {
       this.form.validateFields((err, values) => {
         if (!err) {
+          values.module_id = this.module.id
           this.loading = true
           this.$axios
-            .post('/articles/create', values)
+            .post('/materials/create', values)
             .then((data) => {
               this.loading = false
               this.$message.config({
                 top: '70px'
               })
-              this.$message.success('Article created successfully!')
+              this.$message.success('Material created successfully!')
+              this.$router.push('/admin/series/' + this.module.series.id)
             })
             .catch((err) => {
               err.response.data.data.forEach((item) => {
@@ -437,7 +430,7 @@ export default {
   },
   head() {
     return {
-      title: 'Add article'
+      title: 'Add Material'
     }
   }
 }
