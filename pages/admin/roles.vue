@@ -11,7 +11,7 @@
       <a-row>
         <a-col :span="12"><h1>Role Management</h1></a-col>
         <a-col :span="12">
-          <a-button type="primary" style="float: right" @click="showModal">
+          <a-button type="primary" style="float: right;" @click="showModal">
             Add Role
           </a-button>
           <AddRole
@@ -45,7 +45,7 @@
         clearFilters,
         column
       }"
-      style="padding: 8px"
+      style="padding: 8px;"
     >
       <a-input
         v-ant-ref="(c) => (searchInput = c)"
@@ -61,13 +61,13 @@
         type="primary"
         icon="search"
         size="small"
-        style="width: 90px; margin-right: 8px"
+        style="width: 90px; margin-right: 8px;"
         @click="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
         >Search</a-button
       >
       <a-button
         size="small"
-        style="width: 90px"
+        style="width: 90px;"
         @click="() => handleReset(clearFilters)"
         >Reset</a-button
       >
@@ -104,7 +104,7 @@
         cancel-text="Cancel"
         ok-type="danger"
         @confirm="destroy(val)"
-        ><a-icon slot="icon" type="question-circle-o" style="color: red" />
+        ><a-icon slot="icon" type="question-circle-o" style="color: red;" />
         <a-button type="danger" icon="delete"></a-button>
       </a-popconfirm>
     </template>
